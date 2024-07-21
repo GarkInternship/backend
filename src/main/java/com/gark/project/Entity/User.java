@@ -24,8 +24,6 @@ public class User {
 
     private String username;
     private String password;
-
-    @DBRef
-    private Set<Role> roles;
+    private Set<String> roles;
 
 }

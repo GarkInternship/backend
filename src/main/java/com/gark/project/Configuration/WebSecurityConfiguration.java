@@ -31,7 +31,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/auth/signin","/auth/signup" ,"/role/**").permitAll()
+                        .requestMatchers("/auth/**","/auth/**" ,"/role/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()

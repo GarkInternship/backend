@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-class UsrDetails implements UserDetails {
+public class UsrDetails implements UserDetails {
 
     private User user;
 
@@ -19,7 +19,7 @@ class UsrDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
