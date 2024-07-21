@@ -25,8 +25,8 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String nom,president,location,type ;// type ??
-    private String logoUrl;
+    private String nom,president,Location,type ;// type ??
+
     private Date foundationYear ;
 
 //    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,24 +37,12 @@ public class Club {
     private List<Contract> contracts = new ArrayList<>();
 
     @DBRef
-    @JsonManagedReference(value = "club-groups")
+//    @JsonManagedReference(value = "groups")
     private List<Group> groups = new ArrayList<>();
 
-    public Club(String id, String nom, String president , Date foundationYear, String location, String logoUrl) {
-        this.id = id;
-        this.nom = nom;
-        this.president = president;
-        this.location = location;
-        this.logoUrl = logoUrl;
-        this.foundationYear = foundationYear;
-    }
 
-    public Club(String nom, String president, Date foundationYear, String location) {
-        this.nom = nom;
-        this.president = president;
-        this.location = location;
-        this.foundationYear = foundationYear;
-    }
+
+
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -80,7 +68,7 @@ public class Club {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        Location = location;
     }
 
     public void setContracts(List<Contract> contracts) {
