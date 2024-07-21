@@ -134,7 +134,7 @@ public class ContractController {
             groupName = "U20";
             niveau= Group.Niveau.Junior ;
         } else {
-            groupName = "Senior";
+            groupName = "";
             niveau= Group.Niveau.Senior ;
         }
 

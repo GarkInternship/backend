@@ -33,6 +33,7 @@ public class Group {
     private Niveau niveau ;
 
     @DBRef
+    @JsonBackReference(value = "club-groups")
     private Club club ;
 
     @DBRef
