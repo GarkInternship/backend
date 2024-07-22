@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface GroupRepository extends MongoRepository<Group, String> {
     Group findByNom(String nom);
-   // Group findByNom(String nom);
+    // Group findByNom(String nom);
 
     //Optional<Group> findByNom(String nom);
 
