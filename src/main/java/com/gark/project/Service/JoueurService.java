@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface JoueurService {
     public List<Joueur> getAllPlayers();
-    public Joueur getPlayerById(String id) ;
+    public Joueur getPlayerById(Long id) ;
     public Joueur savePlayer(Joueur player) ;
-    public void deletePlayer(String id) ;
+    public void deletePlayer(Long id) ;
 }

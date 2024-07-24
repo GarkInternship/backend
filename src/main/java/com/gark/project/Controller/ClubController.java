@@ -25,7 +25,7 @@ public class ClubController {
     }
 
     @GetMapping("/{id}")
-    public Club getClubById(@PathVariable String id) {
+    public Club getClubById(@PathVariable Long id) {
         return clubService.getClubById(id);
     }
 
@@ -39,7 +39,7 @@ public class ClubController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteClub(@PathVariable String id) {
+    public void deleteClub(@PathVariable Long id) {
         clubService.deleteClub(id);
     }
 }

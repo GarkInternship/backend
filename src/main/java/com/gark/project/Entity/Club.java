@@ -3,44 +3,51 @@ package com.gark.project.Entity;
 
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "clubs")
+//@FieldDefaults(level = AccessLevel.PRIVATE)
+//@Document(collection = "clubs")
 public class Club {
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String nom,president,location,type ;// type ??
     private String logoUrl;
     private Date foundationYear ;
 
-//    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Contract> contracts ;
 
-    @DBRef
-    @JsonManagedReference(value = "club-contracts")
+//    @DBRef
+//    @JsonManagedReference(value = "club-contracts")
+//    private List<Contract> contracts = new ArrayList<>();
+
+//    @DBRef
+//    @JsonManagedReference(value = "club-groups")
+//    private List<Group> groups = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contract> contracts = new ArrayList<>();
 
-    @DBRef
-    @JsonManagedReference(value = "club-groups")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Group> groups = new ArrayList<>();
 
-    public Club(String id, String nom, String president , Date foundationYear, String location, String logoUrl) {
+
+    public Club(Long id, String nom, String president , Date foundationYear, String location, String logoUrl) {
         this.id = id;
         this.nom = nom;
         this.president = president;
@@ -75,9 +82,6 @@ public class Club {
         this.foundationYear = foundationYear;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setLocation(String location) {
         this.location = location;
@@ -85,6 +89,10 @@ public class Club {
 
     public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

@@ -26,7 +26,7 @@ public class ClubServiceImpl implements ClubService {
         return (List<Club>) clubRepository.findAll();
     }
 
-    public Club getClubById(String id) {
+    public Club getClubById(Long id) {
         return clubRepository.findById(id).orElse(null);
     }
 
@@ -34,11 +34,11 @@ public class ClubServiceImpl implements ClubService {
         return clubRepository.save(club);
     }
 
-    public void deleteClub(String id) {
+    public void deleteClub(Long id) {
         clubRepository.deleteById(id);
     }
 
-    public Optional<Club> findById(String id) {
+    public Optional<Club> findById(Long id) {
         return Optional.ofNullable(clubRepository.findById(id).orElse(null));
     }
 

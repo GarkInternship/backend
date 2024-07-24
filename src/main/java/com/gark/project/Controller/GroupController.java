@@ -2,7 +2,6 @@ package com.gark.project.Controller;
 
 import com.gark.project.Entity.Club;
 import com.gark.project.Entity.Group;
-import com.gark.project.Entity.Joueur;
 import com.gark.project.Service.ClubServiceImpl;
 import com.gark.project.Service.GroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

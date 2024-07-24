@@ -3,31 +3,25 @@ package com.gark.project.Entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "joueurs")
+//@FieldDefaults(level = AccessLevel.PRIVATE)
+//@Document(collection = "joueurs")
 public class Joueur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String fullname,position;
     private int jerseyNumber;
@@ -37,20 +31,23 @@ public class Joueur {
 
     private LocalDate bday ;
 
-//    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Contract> contracts = new HashSet<>();
+//    @DBRef
+//    @JsonManagedReference(value = "joueur-contracts")
+//    private List<Contract> contracts = new ArrayList<>();
+//    // it supposed to be 1 contract ?? and when it experied it will be expired ???
+//
+//
+//    @DBRef
+//    @JsonBackReference
+//    private Group group;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "group_id")
-
-    @DBRef
-    @JsonManagedReference(value = "joueur-contracts")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "joueur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contract> contracts = new ArrayList<>();
-    // it supposed to be 1 contract ?? and when it experied it will be expired ???
 
-
-    @DBRef
+    @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "group_id")
     private Group group;
 
 
@@ -58,7 +55,7 @@ public class Joueur {
 
 
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

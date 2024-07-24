@@ -1,43 +1,47 @@
 package com.gark.project.Entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "groups")
+@Table(name = "groupe")
+//@FieldDefaults(level = AccessLevel.PRIVATE)
+//@Document(collection = "groups")
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
-    private String nom,type ;// type ??
+    private String nom;// type ??
 
     private Niveau niveau ;
 
-    @DBRef
-    @JsonBackReference(value = "club-groups")
-    private Club club ;
+//    @DBRef
+//    @JsonBackReference(value = "club-groups")
+//    private Club club ;
+//
+//    @DBRef
+//    @JsonManagedReference
+//    private List<Joueur> players = new ArrayList<>();
 
-    @DBRef
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "club_id")
+    private Club club;
+
     @JsonManagedReference
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Joueur> players = new ArrayList<>();
 
     public Group(String nom) {
@@ -53,11 +57,8 @@ public class Group {
         this.nom = nom;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

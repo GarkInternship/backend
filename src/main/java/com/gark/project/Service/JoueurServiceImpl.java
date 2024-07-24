@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class JoueurServiceImpl implements JoueurService{
 
-    @Autowired
+    @Autowired(required = false)
     private JoueurRepository JoueurRepository;
 
     public List<Joueur> getAllPlayers() {
         return (List<Joueur>) JoueurRepository.findAll();
     }
 
-    public Joueur getPlayerById(String id) {
+    public Joueur getPlayerById(Long id) {
         return JoueurRepository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class JoueurServiceImpl implements JoueurService{
         return JoueurRepository.save(player);
     }
 
-    public void deletePlayer(String id) {
+    public void deletePlayer(Long id) {
         JoueurRepository.deleteById(id);
     }
 }

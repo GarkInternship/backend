@@ -7,7 +7,7 @@ import java.util.List;
 public interface GroupService {
 
     public List<Group> getAllGroups() ;
-    public Group getGroupById(String id) ;
+    public Group getGroupById(Long id) ;
     public Group saveGroup(Group contract) ;
-    public void deleteGroup(String id) ;
+    public void deleteGroup(Long id) ;
 }

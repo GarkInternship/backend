@@ -6,37 +6,45 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "contracts")
+//@FieldDefaults(level = AccessLevel.PRIVATE)
+//@Document(collection = "contracts")
 public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private String titre,details ;
     private Etat etat ;
 
-    @DBRef
-    @JsonBackReference(value = "club-contracts")
+//    @DBRef
+//    @JsonBackReference(value = "club-contracts")
+//    private Club club;
+//
+//    @DBRef
+//    @JsonBackReference(value = "joueur-contracts")
+//    private Joueur joueur;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "club_id")
     private Club club;
 
-    @DBRef
-    @JsonBackReference(value = "joueur-contracts")
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "joueur_id")
     private Joueur joueur;
 
     public enum Etat {

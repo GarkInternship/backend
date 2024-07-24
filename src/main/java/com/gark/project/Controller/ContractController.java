@@ -5,7 +5,6 @@ import com.gark.project.Entity.Contract;
 import com.gark.project.Entity.Group;
 import com.gark.project.Entity.Joueur;
 import com.gark.project.Rpository.ClubRepository;
-import com.gark.project.Rpository.ContractRepository;
 import com.gark.project.Rpository.GroupRepository;
 import com.gark.project.Rpository.JoueurRepository;
 import com.gark.project.Service.*;
@@ -16,7 +15,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 
 @RestController
@@ -25,10 +23,10 @@ public class ContractController {
 
     @Autowired
     private ContractServiceImpl contractService;
-    @Autowired
+    @Autowired(required = false)
     private ClubRepository clubRepository;
 
-    @Autowired
+    @Autowired(required = false)
     private JoueurRepository joueurRepository;
 
     @Autowired
@@ -36,7 +34,7 @@ public class ContractController {
 
     @Autowired
     private ClubServiceImpl clubService;
-    @Autowired
+    @Autowired(required = false)
     private GroupRepository groupRepository;
 
     @Autowired
@@ -49,13 +47,13 @@ public class ContractController {
     }
 
     @GetMapping("/{id}")
-    public Contract getContractById(@PathVariable String id) {
+    public Contract getContractById(@PathVariable Long id) {
         return contractService.getContractById(id);
     }
 
     @PostMapping("/add")
     public Contract createContract(@RequestBody Contract body) {
-        Optional<Club> clubOptional = clubRepository.findById(body.getClub().getId());
+        Optional<Club> clubOptional = clubRepository.findById(body.getId());
         Optional<Joueur> joueurOptional = joueurRepository.findById(body.getJoueur().getId());
 
         if (clubOptional.isPresent() && joueurOptional.isPresent()) {
@@ -145,7 +143,7 @@ public class ContractController {
         if(groupRepository.findByNom(fullGroupName)==null){
             Group newGroup = new Group();
             newGroup.setNom(club.getNom() + " " +groupName);
-            newGroup.setType("Age Group");
+            //newGroup.setType("Age Group");
             newGroup.setNiveau(niveau);
             newGroup.setClub(club);
             return groupService.saveGroup(newGroup);
@@ -156,7 +154,7 @@ public class ContractController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteContract(@PathVariable String id) {
+    public void deleteContract(@PathVariable Long id) {
         contractService.deleteContract(id);
     }
 }

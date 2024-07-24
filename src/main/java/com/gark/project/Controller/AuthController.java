@@ -27,7 +27,7 @@ import java.util.Set;
 @CrossOrigin("*")
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired
+    @Autowired(required = false)
     private UserRepository userRepository;
 
     @Autowired

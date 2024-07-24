@@ -1,8 +1,6 @@
 package com.gark.project.Service;
 
-import com.gark.project.Entity.Contract;
 import com.gark.project.Entity.Group;
-import com.gark.project.Rpository.ContractRepository;
 import com.gark.project.Rpository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService{
 
-    @Autowired
+    @Autowired(required = false)
     private GroupRepository groupRepository;
     @Override
     public List<Group> getAllGroups() {
@@ -19,7 +17,7 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Group getGroupById(String id) {
+    public Group getGroupById(Long id) {
         return groupRepository.findById(id).orElse(null);
     }
 
@@ -29,7 +27,7 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public void deleteGroup(String id) {
+    public void deleteGroup(Long id) {
         groupRepository.deleteById(id);
     }
 }

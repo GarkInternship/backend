@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class ContractServiceImpl implements ContractService{
 
-    @Autowired
+    @Autowired(required = false)
     private ContractRepository contractRepository;
 
     public List<Contract> getAllContracts() {
         return (List<Contract>) contractRepository.findAll();
     }
 
-    public Contract getContractById(String id) {
+    public Contract getContractById(Long id) {
         return contractRepository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class ContractServiceImpl implements ContractService{
         return contractRepository.save(contract);
     }
 
-    public void deleteContract(String id) {
+    public void deleteContract(Long id) {
         contractRepository.deleteById(id);
     }
 }

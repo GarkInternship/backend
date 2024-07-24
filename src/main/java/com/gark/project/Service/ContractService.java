@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ContractService {
     public List<Contract> getAllContracts() ;
-    public Contract getContractById(String id) ;
+    public Contract getContractById(Long id) ;
     public Contract saveContract(Contract contract) ;
-    public void deleteContract(String id) ;
+    public void deleteContract(Long id) ;
 }
